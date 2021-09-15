@@ -42,11 +42,12 @@ def home(request):
 #     return render(request, 'search.html', {'data': data})
 
 
-# def about(request):
+def about(request):
 
 #     categories = Category.objects.all()
 #     context = {'categories': categories}
-#     return render(request, 'about.html', context)
+    context = {}
+    return render(request, 'home_app/about.html', context)
 
 
 # def products(request):
@@ -463,7 +464,7 @@ def home(request):
 
 
 
-# def contact(request):
+def contact(request):
 
 #     categories = Category.objects.all()
 #     if request.method == 'POST':
@@ -487,5 +488,6 @@ def home(request):
 
 #     else:
 #         context = {'categories': categories}
-#     return render(request, 'contact.html', context)
+    context = {}
+    return render(request, 'home_app/contact.html', context)
 
