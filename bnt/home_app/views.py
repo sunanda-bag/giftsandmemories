@@ -10,9 +10,9 @@ from .models import *
 # from django.db.models import Max, Min, Count, Avg
 # from django.db.models.functions import ExtractMonth
 
-# from .forms import *
-# from django.contrib.auth import login, authenticate
-# from django.contrib.auth.decorators import login_required
+from .forms import *
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 # # paypal
 # from django.urls import reverse
@@ -50,21 +50,22 @@ def about(request):
     return render(request, 'home_app/about.html', context)
 
 
-# def products(request):
+def products(request):
 
-#     categories = Category.objects.all()
-#     labels = Label.objects.all()
-#     products = Product.objects.all()
+    categories = Category.objects.all()
+    labels = Variant.objects.all()
+    products = Product.objects.all()
 #     minMaxPrice = Product.objects.aggregate(
 #         Min('discount_price'), Max('discount_price'))
 #     # products = myFilter.qs
 
-#     data = {'products': products,
+    data = {'products': products,
 #             'labels': labels,
-#             'categories': categories,
+            'categories': categories,
 #             'minMaxPrice': minMaxPrice,
-#             }
-#     return render(request, 'products.html', data)
+            }
+    # data = {}
+    return render(request, 'home_app/product.html', data)
 
 
 # # Filter data
@@ -223,20 +224,20 @@ def about(request):
 
 
 
-# # Signup Form
-# def signup(request):
-#     form = SignupForm   
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             pwd = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=pwd)
-#             login(request, user)
-#             return redirect('home')
-#     # form = SignupForm
-#     return render(request, 'registration/signup.html', {'form': form})
+# Signup Form
+def signup(request):
+    form = SignupForm   
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            pwd = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=pwd)
+            login(request, user)
+            return redirect('home')
+    # form = SignupForm
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 # # Checkout
