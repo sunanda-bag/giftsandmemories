@@ -1,0 +1,229 @@
+{% extends 'home_app/base.html' %}
+{% load static %}
+{% block content %}
+{% include 'home_app/header.html' %}
+
+<main>
+
+
+    <!--? Properties Start -->
+    <section class="properties new-arrival fix">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="properties__button text-center">
+                        <!--Nav Button  -->
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-Sofa-tab" data-toggle="tab" href="#nav-Sofa"
+                                    role="tab" aria-controls="nav-Sofa" aria-selected="true">Search results for
+                                    <b>{{request.GET.q}}</b> are</a>
+
+                            </div>
+                        </nav>
+                        <!--End Nav Button  -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Nav Card -->
+                <div class="" id="">
+                    <!-- card one -->
+                    <div class="tab-pane fade show active container-fluid" id="nav-Sofa" role="tabpanel"
+                        aria-labelledby="nav-Sofa-tab">
+
+                        <div class="row card-group">
+
+                            {% for product in data %}
+                            <div class="col-lg-3 col-md-4 col-sm-6 ">
+                                <div class="single-new-arrival mb-50 text-center card shadow bg-white rounded">
+                                    <div class="popular-img">
+                                        <img style="height: 160px;" class="img-thumbnail"
+                                            src="{{product.productattribute_set.first.imageURL}}" alt="">
+                                    </div>
+                                    <div class="popular-caption">
+                                        <h3><a href="product_details.html">{{product.title}}</a></h3>
+                                        <span>${{product.productattribute_set.first.price}}</span>
+
+                                        <div class="add_to_cart">
+                                            <button type="button" data-toggle="modal" class="btn"
+                                                data-target="#productModal-{{product.id}}">
+                                                add to cart</button>
+                                            <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- product details modal -->
+
+                            <div class="modal fade" id="productModal-{{product.id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="exampleModalCenterTitle">{{product.title}}</h3>
+                                            <button style="font-size: 3rem;" type="button" class="close"
+                                                data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <!--? Single Product Area Start-->
+                                            <div class="product_image_area section-padding40">
+                                                <div class="container">
+                                                    <div class="row s_product_inner">
+                                                        <div class="col-lg-5">
+                                                            <div class="product_slider_img">
+                                                                <div id="vertical">
+                                                                    <div
+                                                                        data-thumb="{{product.productattribute_set.first.imageURL}}">
+                                                                        <img src="{{product.productattribute_set.first.imageURL}}"
+                                                                            class="w-100 img-fluid img-thumbnail">
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 offset-lg-1">
+                                                            <div class="s_product_text">
+                                                                <button style="background-color: rgb(182, 126, 54);"
+                                                                    class="btn btn-outline-dark">variation</button>
+                                                                <hr>
+                                                                <h2>${{product.productattribute_set.first.price}}</h2>
+                                                                <ul class="list">
+                                                                    <li>
+                                                                        <a class="active" href="#">
+                                                                            <span>Category</span> :
+                                                                            {{product.category}}</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#"> <span>Availibility</span>
+
+                                                                            {% ifequal product.status True %}
+                                                                            : In Stock
+                                                                            {% else %}
+                                                                            : Out of Stock
+                                                                            {% endifequal %}
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+
+                                                                <p>
+                                                                    {{product.description}}
+                                                                </p>
+                                                                <div class="card_area">
+                                                                    <div class="product_count d-inline-block">
+                                                                        <span class="inumber-decrement"> <i
+                                                                                class="ti-minus"></i></span>
+                                                                        <input class="input-number" type="text"
+                                                                            value="1" min="0" max="10">
+                                                                        <span class="number-increment"> <i
+                                                                                class="ti-plus"></i></span>
+                                                                    </div>
+                                                                    <div class="add_to_cart">
+                                                                        <a href="#" class="btn">add to cart</a>
+                                                                        <a href="#" class="like_us"> <i
+                                                                                class="ti-heart"></i> </a>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Single Product Area End-->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- product details modal end -->
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- End Nav Card -->
+            </div>
+
+
+
+
+
+
+
+            <!-- Button -->
+            <div class="row justify-content-center">
+                <div class="room-btn">
+                    <a href="product.html" class="border-btn">Discover More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Properties End -->
+
+    <!--? New Arrival End -->
+    <!-- Popular Locations End -->
+    <!--? Services Area Start -->
+    <div class="categories-area section-padding40 gray-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="cat-icon">
+                            <img src="{% static '' %}assets/img/icon/services1.svg" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5>Fast & Free Delivery</h5>
+                            <p>Free delivery on all orders</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                        <div class="cat-icon">
+                            <img src="{% static '' %}assets/img/icon/services2.svg" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5>Secure Payment</h5>
+                            <p>Free delivery on all orders</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                        <div class="cat-icon">
+                            <img src="{% static '' %}assets/img/icon/services3.svg" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5>Money Back Guarantee</h5>
+                            <p>Free delivery on all orders</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
+                        <div class="cat-icon">
+                            <img src="{% static '' %}assets/img/icon/services4.svg" alt="">
+                        </div>
+                        <div class="cat-cap">
+                            <h5>Online Support</h5>
+                            <p>Free delivery on all orders</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--? Services Area End -->
+</main>
+
+{% endblock content %}

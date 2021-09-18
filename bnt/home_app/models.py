@@ -44,7 +44,7 @@ class Product(models.Model):
     description=models.TextField()
     category=models.ForeignKey(Category,on_delete=models.CASCADE)
     # brand=models.ForeignKey(Brand,on_delete=models.CASCADE)
-    status=models.BooleanField(default=True)
+    
     is_featured=models.BooleanField(default=False)
 
     class Meta:
@@ -57,7 +57,7 @@ class Product(models.Model):
 class ProductAttribute(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     variant=models.ForeignKey(Variant,on_delete=models.CASCADE)
-    
+    status=models.BooleanField(default=True)
     price=models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
    

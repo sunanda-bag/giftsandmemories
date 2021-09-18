@@ -23,23 +23,25 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
 
-    # products = Product.objects.all()
-    # featured_prod = Product.objects.filter(is_featured=True).order_by('-id')
+    products = Product.objects.all()
+    featured_prod = Product.objects.filter(is_featured=True).order_by('-id')
     # new_prod = Product.objects.filter(is_new=True).order_by('-id')
-    # categories = Category.objects.all()
+    categories = Category.objects.all()
 
-    # context = {'featured_prod': featured_prod, 'products': products,
-    #            'new_prod': new_prod, 'categories': categories}
-    context={}
+    context = {'featured_prod': featured_prod, 
+               'products': products,
+               'categories': categories
+               }
+    # context={}
     return render(request, 'home_app/index.html', context)
 
 
-# # Search
-# def search(request):
+# Search
+def search(request):
 
-#     q = request.GET['q']
-#     data = Product.objects.filter(title__icontains=q).order_by('-id')
-#     return render(request, 'search.html', {'data': data})
+    q = request.GET['q']
+    data = Product.objects.filter(title__icontains=q).order_by('-id')
+    return render(request, 'home_app/search.html', {'data': data})
 
 
 def about(request):

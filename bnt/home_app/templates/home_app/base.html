@@ -29,22 +29,39 @@
     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 
+
+    <style>
+        @media (min-width: 650px) {
+            .modal-dialog {
+                max-width: 55%;
+            }
+        }
+
+        .modal-dialog {
+            top: 20%;
+        }
+
+        .modal-title {
+            margin-bottom: 0;
+            line-height: 3.5;
+        }
+    </style>
 </head>
 
 <body>
-    
+
 
     {% include 'home_app/preloader.html' %}
-    
+
 
 
 
     {% block content %}
-        
+
     {% endblock content %}
 
     {% include 'home_app/footer.html' %}
-    
+
     <!-- Scroll Up -->
     <div id="back-top">
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
