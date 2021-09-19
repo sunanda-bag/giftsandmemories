@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
 
     <style>
         @media (min-width: 650px) {
@@ -46,15 +47,13 @@
             line-height: 3.5;
         }
     </style>
+    
 </head>
 
 <body>
 
 
     {% include 'home_app/preloader.html' %}
-
-
-
 
     {% block content %}
 
@@ -109,6 +108,8 @@
     <script src="{% static 'assets/js/plugins.js' %}"></script>
     <script src="{% static 'assets/js/main.js' %}"></script>
 
-</body>
+    <!-- custom javascript file -->
+    <script src="{% static 'assets/js/custom.js' %}"></script>
 
+</body>
 </html>

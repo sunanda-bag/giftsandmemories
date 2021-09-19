@@ -70,6 +70,42 @@ def products(request):
     return render(request, 'home_app/product.html', data)
 
 
+def premade(request):
+
+    categories = Category.objects.all()
+    labels = Variant.objects.all()
+    products = Product.objects.all()
+#     minMaxPrice = Product.objects.aggregate(
+#         Min('discount_price'), Max('discount_price'))
+#     # products = myFilter.qs
+
+    data = {'products': products,
+#             'labels': labels,
+            'categories': categories,
+#             'minMaxPrice': minMaxPrice,
+            }
+    # data = {}
+    return render(request, 'home_app/premade.html', data)
+
+
+def build_a_box(request):
+
+    categories = Category.objects.all()
+    labels = Variant.objects.all()
+    products = Product.objects.all()
+#     minMaxPrice = Product.objects.aggregate(
+#         Min('discount_price'), Max('discount_price'))
+#     # products = myFilter.qs
+
+    data = {'products': products,
+#             'labels': labels,
+            'categories': categories,
+#             'minMaxPrice': minMaxPrice,
+            }
+    # data = {}
+    return render(request, 'home_app/build-a-box.html', data)
+
+
 # # Filter data
 # def products_filter(request):
 
@@ -277,6 +313,7 @@ def signup(request):
 #             )
 #             # End
 
+
 #         # Process Payment
 #         host = request.get_host()
 #         paypal_dict = {
@@ -300,6 +337,7 @@ def signup(request):
 #                                                 'form': form, 
 #                                                 'address': address,
 #                                                   })
+
 
 
 
@@ -378,20 +416,25 @@ def signup(request):
 # 		}
 # 	return JsonResponse(data)
 
+
+
 # # My Wishlist
 # def my_wishlist(request):
 # 	wlist=Wishlist.objects.filter(user=request.user).order_by('-id')
 # 	return render(request, 'user/wishlist.html',{'wlist':wlist})
+
 
 # # My Reviews
 # def my_reviews(request):
 # 	reviews=ProductReview.objects.filter(user=request.user).order_by('-id')
 # 	return render(request, 'user/reviews.html',{'reviews':reviews})
 
+
 # # My AddressBook
 # def my_addressbook(request):
 # 	addbook=UserAddressBook.objects.filter(user=request.user).order_by('-id')
 # 	return render(request, 'user/addressbook.html',{'addbook':addbook})
+
 
 # # Save addressbook
 # def save_address(request):
@@ -408,12 +451,15 @@ def signup(request):
 # 	form=AddressBookForm
 # 	return render(request, 'user/add-address.html',{'form':form,'msg':msg})
 
+
 # # Activate address
 # def activate_address(request):
 # 	a_id=str(request.GET['id'])
 # 	UserAddressBook.objects.update(status=False)
 # 	UserAddressBook.objects.filter(id=a_id).update(status=True)
 # 	return JsonResponse({'bool':True})
+
+
 
 # # Edit Profile
 # def edit_profile(request):
@@ -425,6 +471,7 @@ def signup(request):
 # 			msg='Data has been saved'
 # 	form=ProfileForm(instance=request.user)
 # 	return render(request, 'user/edit-profile.html',{'form':form,'msg':msg})
+
 
 # # Update addressbook
 # def update_address(request,id):
@@ -442,10 +489,13 @@ def signup(request):
 # 	form=AddressBookForm(instance=address)
 # 	return render(request, 'user/update-address.html',{'form':form,'msg':msg})
 
+
+
 # @csrf_exempt
 # def payment_done(request):
 # 	returnData=request.POST
 # 	return render(request, 'payment-success.html',{'data':returnData})
+
 
 
 # @csrf_exempt
