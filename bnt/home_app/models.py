@@ -12,7 +12,7 @@ class Category(models.Model):
         return self.title
 
     class Meta:
-        verbose_name_plural='Categories'
+        verbose_name_plural='1. Categories'
         
 
 
@@ -31,7 +31,80 @@ class Variant(models.Model):
     title=models.CharField(max_length=100)
 
     class Meta:
-        verbose_name_plural='Variants'
+        verbose_name_plural='2. Variants'
+
+    def __str__(self):
+        return self.title
+
+
+# Variant
+class BoxSize(models.Model):
+    title=models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural='3. Box Sizes'
+
+    def __str__(self):
+        return self.title
+
+
+# Box Model
+class Box(models.Model):
+    title=models.CharField(max_length=200)
+    description=models.TextField()
+
+    class Meta:
+        verbose_name_plural='4. Boxes'
+
+    def __str__(self):
+        return self.title
+
+
+# Box Attribute
+class BoxAttribute(models.Model):
+    box=models.ForeignKey(Box,on_delete=models.CASCADE)
+    size=models.ForeignKey(BoxSize,on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product_images/', null=True, blank=True)
+    availability_status=models.BooleanField(default=True)
+   
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
+    class Meta:
+        verbose_name_plural='5. BoxAttributes'
+
+    def __str__(self):
+        return self.box.title
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+
+
+
+# Cards Model
+class Card(models.Model):
+    title=models.CharField(max_length=200)
+    availability_status=models.BooleanField(default=True)
+    image = models.ImageField(upload_to='product_images/', null=True, blank=True)
+   
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
+    def image_tag(self):
+        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+
+    class Meta:
+        verbose_name_plural='6. Cards'
 
     def __str__(self):
         return self.title
@@ -48,7 +121,7 @@ class Product(models.Model):
     is_featured=models.BooleanField(default=False)
 
     class Meta:
-        verbose_name_plural='Products'
+        verbose_name_plural='7. Products'
 
     def __str__(self):
         return self.title
@@ -57,7 +130,7 @@ class Product(models.Model):
 class ProductAttribute(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
     variant=models.ForeignKey(Variant,on_delete=models.CASCADE)
-    status=models.BooleanField(default=True)
+    availability_status=models.BooleanField(default=True)
     price=models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
    
@@ -70,7 +143,7 @@ class ProductAttribute(models.Model):
         return url
 
     class Meta:
-        verbose_name_plural='ProductAttributes'
+        verbose_name_plural='8. ProductAttributes'
 
     def __str__(self):
         return self.product.title
@@ -79,64 +152,6 @@ class ProductAttribute(models.Model):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
 
 
-
-
-# class Product(models.Model):
-
-#     title = models.CharField(max_length=200, null=True)
-#     price = models.PositiveIntegerField(default=0)
-#     discount_price = models.PositiveIntegerField(default=0,blank=True, null=True)
-   
-#     category=models.ForeignKey(Category,on_delete=models.CASCADE)
-#     label = models.ForeignKey(Label,on_delete=models.CASCADE,null=True,blank=True)
-#     is_new=models.BooleanField(default=False)
-#     is_featured=models.BooleanField(default=False)
-#     status=models.BooleanField(default=True)
-
-#     # slug = models.SlugField()
-#     description = models.TextField()
-#     short_description = models.TextField()
-   
-#     image = models.ImageField(upload_to='home_app', null=True, blank=True)
-
-#     class Meta:
-#         verbose_name_plural='3. Products'
-
-#     def get_absolute_url(self):
-#         return reverse("home_app:product-detail", kwargs={
-#             'id': self.id
-#         })
-
-#     @property
-#     def imageURL(self):
-#         try:
-#             url = self.image.url
-#         except:
-#             url = ''
-#         return url
-
-#     def __str__(self):
-#         return self.title
-
-#     def image_tag(self):
-#         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
-
-
-
-# class ProductImage(models.Model):
-#     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
-#     images = models.ImageField(upload_to='home_app', null=True, blank=True)
-
-#     def __str__(self):
-#         return self.product.title
-
-#     @property
-#     def imageURL(self):
-#         try:
-#             url = self.images.url
-#         except:
-#             url = ''
-#         return url
 
 
 

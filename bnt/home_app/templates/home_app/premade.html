@@ -60,12 +60,11 @@
                    
                         <div class="card1 b-0 show">
                             <div class="row justify-content-center">
-                                <h2>Purchase Our Pre-Packed Gift Boxes</h2>
-                                <!-- <p>Quick, hassle-free, ready-to-ship gift boxes for you..</p>
-                                <h3>Select the box below!</h3> -->
+                                <h2>Choose Your Box</h2>
+                                <br>
 
                                 <!-- select the box -->
-                                <div class="row card-group mb-5" style="margin-top: 20px;">
+                                <div class="row card-group " style="margin-top: 30px;">
 
                                     {% for product in products %}
                                     <div class="col-lg-3 col-md-4 col-sm-6 ">
@@ -137,7 +136,7 @@
                                                                             </li>
                                                                             <li>
                                                                                 <a href="#"> <span>Availibility</span>
-
+                                                                                    {{product.status}}
                                                                                     {% ifequal product.status True %}
                                                                                     : In Stock
                                                                                     {% else %}
@@ -193,11 +192,8 @@
                                 </div>
                                 <!-- select the box end -->
 
-
                             </div>
-                            <div class="row d-flex justify-content-center">
-
-                                
+                            <div class="row d-flex justify-content-center">  
                                 <div class="circle">
                                     <div class="fa fa-long-arrow-right next" id="next1" onclick="validate1(0)"></div>
                                 </div>

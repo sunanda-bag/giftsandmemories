@@ -5,7 +5,6 @@
 
 <main>
 
-
     <!--? slider Area Start-->
     <div class="slider-area ">
         <div class="slider-active">
@@ -59,29 +58,33 @@
                             <li class="step0" id="step4">Done</li>
                             
                         </ul>
+                        
+
                         <div class="card1 b-0 show">
+                            <h2 class="center" style="text-align: center;"> Choose a Box</h2>
                             <div class="row justify-content-center">
-                                <h2>Choose Your Box</h2>
-                                <br>
+                                
+                                <!-- <p>Quick, hassle-free, ready-to-ship gift boxes for you..</p>
+                                <h3>Select the box below!</h3> -->
 
                                 <!-- select the box -->
-                                <div class="row card-group " style="margin-top: 30px;">
+                                <div class="row card-group mb-5" style="margin-top: 20px;">
 
-                                    {% for product in products %}
+                                    {% for box in boxes %}
                                     <div class="col-lg-3 col-md-4 col-sm-6 ">
                                         <div class="single-new-arrival mb-50 text-center card shadow bg-white rounded">
                                             <div class="popular-img">
                                                 <img style="height: 185px;" class="img-thumbnail"
-                                                    src="{{product.productattribute_set.first.imageURL}}" alt="">
+                                                    src="{{box.boxattribute_set.first.imageURL}}" alt="">
                                             </div>
                                             <div class="popular-caption">
-                                                <h3><a href="product_details.html">{{product.title}}</a></h3>
-                                                <span>${{product.productattribute_set.first.price}}</span>
+                                                <h3><a href="#">{{box.title}}</a></h3>
+                                                <!-- <span>${{product.productattribute_set.first.price}}</span> -->
 
                                                 <div class="add_to_cart">
                                                     <button type="button" data-toggle="modal" class="btn"
-                                                        data-target="#productModal-{{product.id}}">
-                                                        add to cart</button>
+                                                        data-target="#boxModal-{{box.id}}">
+                                                        {{box.title}}</button>
                                                     <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
                                                 </div>
 
@@ -91,7 +94,7 @@
 
                                     <!-- product details modal -->
 
-                                    <div class="modal fade" id="productModal-{{product.id}}" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="boxModal-{{box.id}}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -113,8 +116,8 @@
                                                                     <div class="product_slider_img">
                                                                         <div id="vertical">
                                                                             <div
-                                                                                data-thumb="{{product.productattribute_set.first.imageURL}}">
-                                                                                <img src="{{product.productattribute_set.first.imageURL}}"
+                                                                                data-thumb="{{box.boxattribute_set.first.imageURL}}">
+                                                                                <img src="{{box.boxattribute_set.first.imageURL}}"
                                                                                     class="w-100 img-fluid img-thumbnail">
                                                                             </div>
 
@@ -127,18 +130,18 @@
                                                                             style="background-color: rgb(182, 126, 54);"
                                                                             class="btn btn-outline-dark">variation</button>
                                                                         <hr>
-                                                                        <h2>${{product.productattribute_set.first.price}}
+                                                                        <h2>${{box.boxattribute_set.first.price}}
                                                                         </h2>
                                                                         <ul class="list">
-                                                                            <li>
+                                                                            <!-- <li>
                                                                                 <a class="active" href="#">
                                                                                     <span>Category</span> :
-                                                                                    {{product.category}}</a>
-                                                                            </li>
+                                                                                    {{box.category}}</a>
+                                                                            </li> -->
                                                                             <li>
                                                                                 <a href="#"> <span>Availibility</span>
 
-                                                                                    {% ifequal product.status True %}
+                                                                                    {% ifequal box.availability_status True %}
                                                                                     : In Stock
                                                                                     {% else %}
                                                                                     : Out of Stock
@@ -148,7 +151,7 @@
                                                                         </ul>
 
                                                                         <p>
-                                                                            {{product.description}}
+                                                                            {{box.description}}
                                                                         </p>
                                                                         <div class="card_area">
                                                                             <div class="product_count d-inline-block">
@@ -160,7 +163,7 @@
                                                                                         class="ti-plus"></i></span>
                                                                             </div>
                                                                             <div class="add_to_cart">
-                                                                                <a href="#" class="btn">add to cart</a>
+                                                                                <a href="#" class="btn">Add to Box</a>
                                                                                 <a href="#" class="like_us"> <i
                                                                                         class="ti-heart"></i> </a>
                                                                             </div>
@@ -185,16 +188,13 @@
                                     {% endfor %}
 
                                 </div>
-                                <!-- Button -->
-                                <div class="row justify-content-center">
-                                    <div class="room-btn">
-                                        <a href="#" class="border-btn">Discover More</a>
-                                    </div>
-                                </div>
+                                
                                 <!-- select the box end -->
 
+
                             </div>
-                            <div class="row d-flex justify-content-center">  
+                            <div class="row d-flex justify-content-center">
+
                                 <div class="circle">
                                     <div class="fa fa-long-arrow-right next" id="next1" onclick="validate1(0)"></div>
                                 </div>
@@ -205,6 +205,7 @@
                         <div class="card1 b-0">
                             <div class="fa fa-long-arrow-left prev"> </div>
                             <div class="row justify-content-center">
+                                <h2>Purchase Our Pre-Packed Gift Boxes</h2>
 
                                 <!-- select the box -->
                                 <div class="row card-group">
@@ -349,20 +350,20 @@
                                 <!-- select the box -->
                                 <div class="row card-group">
 
-                                    {% for product in products %}
+                                    {% for card in cards %}
                                     <div class="col-lg-3 col-md-4 col-sm-6 ">
                                         <div class="single-new-arrival mb-50 text-center card shadow bg-white rounded">
                                             <div class="popular-img">
                                                 <img style="height: 185px;" class="img-thumbnail"
-                                                    src="{{product.productattribute_set.first.imageURL}}" alt="">
+                                                    src="{{card.imageURL}}" alt="">
                                             </div>
                                             <div class="popular-caption">
-                                                <h3><a href="product_details.html">{{product.title}}</a></h3>
+                                                <h3><a href="#">{{product.title}}</a></h3>
                                                 <span>${{product.productattribute_set.first.price}}</span>
 
                                                 <div class="add_to_cart">
                                                     <button type="button" data-toggle="modal" class="btn"
-                                                        data-target="#productModal-{{product.id}}">
+                                                        data-target="#cardModal-{{card.id}}">
                                                         add to cart</button>
                                                     <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
                                                 </div>
@@ -373,13 +374,13 @@
 
                                     <!-- product details modal -->
 
-                                    <div class="modal fade" id="productModal-{{product.id}}" tabindex="-1" role="dialog"
+                                    <div class="modal fade" id="cardModal-{{card.id}}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h3 class="modal-title" id="exampleModalCenterTitle">
-                                                        {{product.title}}</h3>
+                                                        {{card.title}}</h3>
                                                     <button style="font-size: 3rem;" type="button" class="close"
                                                         data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -395,8 +396,8 @@
                                                                     <div class="product_slider_img">
                                                                         <div id="vertical">
                                                                             <div
-                                                                                data-thumb="{{product.productattribute_set.first.imageURL}}">
-                                                                                <img src="{{product.productattribute_set.first.imageURL}}"
+                                                                                data-thumb="{{card.imageURL}}">
+                                                                                <img src="{{card.imageURL}}"
                                                                                     class="w-100 img-fluid img-thumbnail">
                                                                             </div>
 
@@ -409,8 +410,7 @@
                                                                             style="background-color: rgb(182, 126, 54);"
                                                                             class="btn btn-outline-dark">variation</button>
                                                                         <hr>
-                                                                        <h2>${{product.productattribute_set.first.price}}
-                                                                        </h2>
+                                                                        
                                                                         <ul class="list">
                                                                             <li>
                                                                                 <a class="active" href="#">
@@ -420,7 +420,7 @@
                                                                             <li>
                                                                                 <a href="#"> <span>Availibility</span>
 
-                                                                                    {% ifequal product.status True %}
+                                                                                    {% ifequal card.availability_status True %}
                                                                                     : In Stock
                                                                                     {% else %}
                                                                                     : Out of Stock
@@ -430,7 +430,7 @@
                                                                         </ul>
 
                                                                         <p>
-                                                                            {{product.description}}
+                                                                            {{card.description}}
                                                                         </p>
                                                                         <div class="card_area">
                                                                             <div class="product_count d-inline-block">
@@ -442,7 +442,7 @@
                                                                                         class="ti-plus"></i></span>
                                                                             </div>
                                                                             <div class="add_to_cart">
-                                                                                <a href="#" class="btn">add to cart</a>
+                                                                                <a href="#" class="btn">add to box</a>
                                                                                 <a href="#" class="like_us"> <i
                                                                                         class="ti-heart"></i> </a>
                                                                             </div>

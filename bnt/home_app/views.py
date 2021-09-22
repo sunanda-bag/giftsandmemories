@@ -75,6 +75,8 @@ def premade(request):
     categories = Category.objects.all()
     labels = Variant.objects.all()
     products = Product.objects.all()
+    boxes = Box.objects.all()
+    cards = Card.objects.all()
 #     minMaxPrice = Product.objects.aggregate(
 #         Min('discount_price'), Max('discount_price'))
 #     # products = myFilter.qs
@@ -82,6 +84,8 @@ def premade(request):
     data = {'products': products,
 #             'labels': labels,
             'categories': categories,
+            'boxes':boxes,
+            'cards':cards,
 #             'minMaxPrice': minMaxPrice,
             }
     # data = {}
@@ -93,6 +97,8 @@ def build_a_box(request):
     categories = Category.objects.all()
     labels = Variant.objects.all()
     products = Product.objects.all()
+    boxes = Box.objects.all()
+    cards = Card.objects.all()
 #     minMaxPrice = Product.objects.aggregate(
 #         Min('discount_price'), Max('discount_price'))
 #     # products = myFilter.qs
@@ -100,6 +106,8 @@ def build_a_box(request):
     data = {'products': products,
 #             'labels': labels,
             'categories': categories,
+            'boxes':boxes,
+            'cards':cards,
 #             'minMaxPrice': minMaxPrice,
             }
     # data = {}
