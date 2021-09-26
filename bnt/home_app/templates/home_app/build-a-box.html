@@ -29,7 +29,6 @@
     </div>
     <!-- slider Area End-->
 
-
     <!--? Properties Start -->
     <section class="properties new-arrival fix">
         <div class="container">
@@ -49,13 +48,13 @@
             <!-- step wizard start-->
             <div class="container-fluid px-1 py-5 mx-auto">
                 <div class="row d-flex justify-content-center">
-                    <div class="">
+                    <div class="" >
                         <ul id="progressbar" class="text-center">
-                            <li class="active step0" id="step1">Choose your Box</li>
+                            <li class="active step0" onclick="instep(0,0)" id="step1">Choose your Box</li>
                             
-                            <li class="step0" id="step2">Choose your Item</li>
-                            <li class="step0" id="step3">Choose your Card</li>
-                            <li class="step0" id="step4">Done</li>
+                            <li class="step0 " id="step2"  onclick="instep(1,0)">Choose your Item</li>
+                            <li class="step0" id="step3"  onclick="instep(2,0)">Choose your Card</li>
+                            <li class="step0" id="step4"  >Done</li>
                             
                         </ul>
                         
@@ -82,10 +81,10 @@
                                                 <!-- <span>${{product.productattribute_set.first.price}}</span> -->
 
                                                 <div class="add_to_cart">
-                                                    <button type="button" data-toggle="modal" class="btn"
+                                                    <button type="button" onclick="step2('{{box.id}}')" class="btn"
                                                         data-target="#boxModal-{{box.id}}">
                                                         {{box.title}}</button>
-                                                    <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
+                                                    <!-- <a href="#" class="like_us"> <i class="ti-heart"></i> </a> -->
                                                 </div>
 
                                             </div>
@@ -94,7 +93,7 @@
 
                                     <!-- product details modal -->
 
-                                    <div class="modal fade" id="boxModal-{{box.id}}" tabindex="-1" role="dialog"
+                                    <!-- <div class="modal fade" id="boxModal-{{box.id}}" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
@@ -106,10 +105,10 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
+                                                <div class="modal-body"> -->
 
                                                     <!--? Single Product Area Start-->
-                                                    <div class="product_image_area section-padding40">
+                                                    <!-- <div class="product_image_area section-padding40">
                                                         <div class="container">
                                                             <div class="row s_product_inner">
                                                                 <div class="col-lg-5">
@@ -132,13 +131,13 @@
                                                                         <hr>
                                                                         <h2>${{box.boxattribute_set.first.price}}
                                                                         </h2>
-                                                                        <ul class="list">
+                                                                        <ul class="list"> -->
                                                                             <!-- <li>
                                                                                 <a class="active" href="#">
                                                                                     <span>Category</span> :
                                                                                     {{box.category}}</a>
                                                                             </li> -->
-                                                                            <li>
+                                                                            <!-- <li>
                                                                                 <a href="#"> <span>Availibility</span>
 
                                                                                     {% ifequal box.availability_status True %}
@@ -173,14 +172,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <!-- Single Product Area End-->
 
-                                                </div>
+                                                <!-- </div>
 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!-- product details modal end -->
 
@@ -195,8 +194,8 @@
                             </div>
                             <div class="row d-flex justify-content-center">
 
-                                <div class="circle">
-                                    <div class="fa fa-long-arrow-right next" id="next1" onclick="validate1(0)"></div>
+                                <div class="circle"> 
+                                    <div id="next1" onclick="validate1(0)">Next</div>
                                 </div>
                             </div>
                         </div>
@@ -297,13 +296,14 @@
                                                                             <div class="product_count d-inline-block">
                                                                                 <span class="inumber-decrement"> <i
                                                                                         class="ti-minus"></i></span>
-                                                                                <input class="input-number" type="text"
+                                                                                <input class="input-number" id="product-{{product.id}}"  type="text"
                                                                                     value="1" min="0" max="10">
                                                                                 <span class="number-increment"> <i
                                                                                         class="ti-plus"></i></span>
                                                                             </div>
                                                                             <div class="add_to_cart">
-                                                                                <a href="#" class="btn">add to cart</a>
+                                                                                
+                                                                                <a href="#" class="btn" onclick="step3('{{product.id}}',document.getElementById('product-{{product.id}}').value)" data-bs-dismiss="modal">add to cart</a>
                                                                                 <a href="#" class="like_us"> <i
                                                                                         class="ti-heart"></i> </a>
                                                                             </div>
@@ -336,8 +336,9 @@
 
                             </div>
                             <div class="row d-flex justify-content-center">
-                                <div class="circle">
-                                    <div class="fa fa-long-arrow-right next" id="next2" onclick="validate2(0)"></div>
+                                <div class="circle"> 
+                               
+                                    <div  id="next2" onclick="instep(2,1)">Next</div>
                                 </div>
                             </div>
                         </div>
@@ -475,8 +476,8 @@
 
                             </div>
                             <div class="row d-flex justify-content-center">
-                                <div class="circle">
-                                    <div class="fa fa-long-arrow-right next" id="next2" onclick="validate2(0)"></div>
+                                <div class="circle"> 
+                                    <div id="next2" onclick="validate2(0)">Next</div>
                                 </div>
                             </div>
                         </div>
