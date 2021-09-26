@@ -1,9 +1,10 @@
+import json
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView, View
 from .models import *
 # from django.core.mail import send_mail
 
-# from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 # from django.template.loader import render_to_string
 # from django.core.mail import send_mail
 
@@ -94,6 +95,8 @@ def premade(request):
 
 def build_a_box(request):
 
+    
+    
     categories = Category.objects.all()
     labels = Variant.objects.all()
     products = Product.objects.all()
@@ -111,7 +114,60 @@ def build_a_box(request):
 #             'minMaxPrice': minMaxPrice,
             }
     # data = {}
+    if request.GET.get('cart_items'):
+        cart = json.loads(request.GET.get('cart_items'))
+        data['cart'] = cart
+
+        
     return render(request, 'home_app/build-a-box.html', data)
+
+
+
+# Add to cart
+def add_to_cart(request):
+    print("inside add to cart")
+
+    cart_p = json.loads(request.GET.get('cart_items'))
+    for prd in cart_p:
+        print(cart_p[prd])
+
+    return cart_p
+
+
+
+def test(request):
+    cart_p = {}
+    cart_p[str(request.GET['id'])] = {
+        'image': request.GET['image'],
+        'title': request.GET['title'],
+        'qty': request.GET['qty'],
+        'discountprice': request.GET['discountprice'],
+        'actualprice': request.GET['actualprice'],
+    }
+    if 'cartdata' in request.session:
+        if str(request.GET['id']) in request.session['cartdata']:
+            cart_data = request.session['cartdata']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_p[str(
+                request.GET['id'])]['qty'])+int(cart_data[str(request.GET['id'])]['qty'])
+            cart_data.update(cart_data)
+            request.session['cartdata'] = cart_data
+        else:
+            cart_data = request.session['cartdata']
+            cart_data.update(cart_p)
+            request.session['cartdata'] = cart_data
+    else:
+        request.session['cartdata'] = cart_p
+    return JsonResponse({'data': request.session['cartdata'], 'totalitems': len(request.session['cartdata'])})
+
+
+
+
+
+
+
+
+
+
 
 
 # # Filter data
