@@ -76,13 +76,18 @@ function instep(val, flag) {
 function send_data(data_list){
     console.log("inside send data", data_list)
     $.ajax({
-        url: '/build_a_box',
+        url: "/build-a-box/",
         data: {'cart_items':data_list },
-        dataType: 'json',
+        dataType: false,
         success: function (res) {
             console.log("successfully sent to view")
-        }
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("error: ",textStatus);
+        },
     });
+
 }
 
 

@@ -1,7 +1,9 @@
 {% extends 'home_app/base.html' %}
 {% load static %}
+{% load custom_filter %}
 {% block content %}
 {% include 'home_app/header.html' %}
+
 
 <main>
 
@@ -307,7 +309,7 @@
 
                                                                                 <a href="#" class="btn"
                                                                                     onclick="step3('{{product.id}}',document.getElementById('product-{{product.id}}').value)"
-                                                                                    data-bs-dismiss="modal">add to
+                                                                                    data-dismiss="modal">add to
                                                                                     cart</a>
                                                                                 <a href="#" class="like_us"> <i
                                                                                         class="ti-heart"></i> </a>
@@ -448,7 +450,7 @@
                                                                                         class="ti-plus"></i></span>
                                                                             </div>
                                                                             <div class="add_to_cart">
-                                                                                <a href="#" class="btn">add to box</a>
+                                                                                <a href="#" class="btn btn-responsive" data-dismiss="modal">add to box</a>
                                                                                 <a href="#" class="like_us"> <i
                                                                                         class="ti-heart"></i> </a>
                                                                             </div>
@@ -502,7 +504,7 @@
                                         <div class="container">
                                             <div class="cart_inner">
                                                 <div class="table-responsive">
-                                                    <table class="table">
+                                                    <table id ="checkout_table" class="table">
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col">Product</th>
@@ -512,7 +514,11 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {% for prd in cart %}
+                                                           
+                                                            {% if 'cart' in request.session %}
+                                                            {% for val in request.session.cart %}
+                                                          
+                                                          
                                                             <tr>
                                                                 <td>
                                                                     <div class="media">
@@ -521,7 +527,7 @@
                                                                                 alt="" />
                                                                         </div>
                                                                         <div class="media-body">
-                                                                            <p>Minimalistic shop for multipurpose use
+                                                                            <p> {{request.session.cart|get_item:val|get_item:'product_id'}}
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -531,19 +537,23 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="product_count">
-                                                                        <span class="input-number-decrement"> <i
+                                                                       <!-- <span class="input-number-decrement"> <i
                                                                                 class="ti-minus"></i></span>
                                                                         <input class="input-number" type="text"
                                                                             value="1" min="0" max="10">
                                                                         <span class="input-number-increment"> <i
-                                                                                class="ti-plus"></i></span>
+                                                                                class="ti-plus"></i></span>-->
+                                                                                {{request.session.cart|get_item:val|get_item:'quantity'}}
+
+
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <h5>$720.00</h5>
                                                                 </td>
                                                             </tr>
-                                                            {% endfor %}
+                                                            {%endfor%}
+                                                            {%endif%}
                                                      
                                                             <tr class="bottom_button">
                                                                 <td>
@@ -557,6 +567,7 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
+                                                            
                                                             <tr>
                                                                 <td></td>
                                                                 <td></td>
@@ -567,7 +578,7 @@
                                                                     <h5>$2160.00</h5>
                                                                 </td>
                                                             </tr>
-
+                                                          
                                                         </tbody>
                                                     </table>
 

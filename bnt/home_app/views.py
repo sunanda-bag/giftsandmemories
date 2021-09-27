@@ -114,12 +114,16 @@ def build_a_box(request):
 #             'minMaxPrice': minMaxPrice,
             }
     # data = {}
+    print("request value ",str(request.GET.get('cart_items')))
     if request.GET.get('cart_items'):
         cart = json.loads(request.GET.get('cart_items'))
-        data['cart'] = cart
+        print("value in cart", cart)
+        request.session['cart'] = cart
+        request.session['test'] = "Text for test"
+        return redirect('home_app/build-a-box.html')
+    else:
 
-        
-    return render(request, 'home_app/build-a-box.html', data)
+        return render(request, 'home_app/build-a-box.html', data)
 
 
 
