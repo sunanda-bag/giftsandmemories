@@ -28,23 +28,41 @@
     <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+    
 
+    <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+
+    <style>
+        @media (min-width: 650px) {
+            .modal-dialog {
+                max-width: 55%;
+            }
+        }
+
+        .modal-dialog {
+            top: 20%;
+        }
+
+        .modal-title {
+            margin-bottom: 0;
+            line-height: 3.5;
+        }
+    </style>
+    
 </head>
 
 <body>
-    
+
 
     {% include 'home_app/preloader.html' %}
-    {% include 'home_app/header.html' %}
-
-
 
     {% block content %}
-        
+
     {% endblock content %}
 
     {% include 'home_app/footer.html' %}
-    
+
     <!-- Scroll Up -->
     <div id="back-top">
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
@@ -92,6 +110,8 @@
     <script src="{% static 'assets/js/plugins.js' %}"></script>
     <script src="{% static 'assets/js/main.js' %}"></script>
 
-</body>
+    <!-- custom javascript file -->
+    <script src="{% static 'assets/js/custom.js' %}"></script>
 
+</body>
 </html>

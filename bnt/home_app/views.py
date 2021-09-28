@@ -1,18 +1,19 @@
+import json
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView, View
 from .models import *
 # from django.core.mail import send_mail
 
-# from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 # from django.template.loader import render_to_string
 # from django.core.mail import send_mail
 
 # from django.db.models import Max, Min, Count, Avg
 # from django.db.models.functions import ExtractMonth
 
-# from .forms import *
-# from django.contrib.auth import login, authenticate
-# from django.contrib.auth.decorators import login_required
+from .forms import *
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 # # paypal
 # from django.urls import reverse
@@ -23,23 +24,25 @@ from .models import *
 
 def home(request):
 
-    # products = Product.objects.all()
-    # featured_prod = Product.objects.filter(is_featured=True).order_by('-id')
+    products = Product.objects.all()
+    featured_prod = Product.objects.filter(is_featured=True).order_by('-id')
     # new_prod = Product.objects.filter(is_new=True).order_by('-id')
-    # categories = Category.objects.all()
+    categories = Category.objects.all()
 
-    # context = {'featured_prod': featured_prod, 'products': products,
-    #            'new_prod': new_prod, 'categories': categories}
-    context={}
+    context = {'featured_prod': featured_prod, 
+               'products': products,
+               'categories': categories
+               }
+    # context={}
     return render(request, 'home_app/index.html', context)
 
 
-# # Search
-# def search(request):
+# Search
+def search(request):
 
-#     q = request.GET['q']
-#     data = Product.objects.filter(title__icontains=q).order_by('-id')
-#     return render(request, 'search.html', {'data': data})
+    q = request.GET['q']
+    data = Product.objects.filter(title__icontains=q).order_by('-id')
+    return render(request, 'home_app/search.html', {'data': data})
 
 
 def about(request):
@@ -50,21 +53,125 @@ def about(request):
     return render(request, 'home_app/about.html', context)
 
 
-# def products(request):
+def products(request):
 
-#     categories = Category.objects.all()
-#     labels = Label.objects.all()
-#     products = Product.objects.all()
+    categories = Category.objects.all()
+    labels = Variant.objects.all()
+    products = Product.objects.all()
 #     minMaxPrice = Product.objects.aggregate(
 #         Min('discount_price'), Max('discount_price'))
 #     # products = myFilter.qs
 
-#     data = {'products': products,
+    data = {'products': products,
 #             'labels': labels,
-#             'categories': categories,
+            'categories': categories,
 #             'minMaxPrice': minMaxPrice,
-#             }
-#     return render(request, 'products.html', data)
+            }
+    # data = {}
+    return render(request, 'home_app/product.html', data)
+
+
+def premade(request):
+
+    categories = Category.objects.all()
+    labels = Variant.objects.all()
+    products = Product.objects.all()
+    boxes = Box.objects.all()
+    cards = Card.objects.all()
+#     minMaxPrice = Product.objects.aggregate(
+#         Min('discount_price'), Max('discount_price'))
+#     # products = myFilter.qs
+
+    data = {'products': products,
+#             'labels': labels,
+            'categories': categories,
+            'boxes':boxes,
+            'cards':cards,
+#             'minMaxPrice': minMaxPrice,
+            }
+    # data = {}
+    return render(request, 'home_app/premade.html', data)
+
+
+def build_a_box(request):
+
+    
+    
+    categories = Category.objects.all()
+    labels = Variant.objects.all()
+    products = Product.objects.all()
+    boxes = Box.objects.all()
+    cards = Card.objects.all()
+#     minMaxPrice = Product.objects.aggregate(
+#         Min('discount_price'), Max('discount_price'))
+#     # products = myFilter.qs
+
+    data = {'products': products,
+#             'labels': labels,
+            'categories': categories,
+            'boxes':boxes,
+            'cards':cards,
+#             'minMaxPrice': minMaxPrice,
+            }
+    # data = {}
+    print("request value ",str(request.GET.get('cart_items')))
+    if request.GET.get('cart_items'):
+        cart = json.loads(request.GET.get('cart_items'))
+        print("value in cart", cart)
+        request.session['cart'] = cart
+        request.session['test'] = "Text for test"
+        return redirect('home_app/build-a-box.html')
+    else:
+
+        return render(request, 'home_app/build-a-box.html', data)
+
+
+
+# Add to cart
+def add_to_cart(request):
+    print("inside add to cart")
+
+    cart_p = json.loads(request.GET.get('cart_items'))
+    for prd in cart_p:
+        print(cart_p[prd])
+
+    return cart_p
+
+
+
+def test(request):
+    cart_p = {}
+    cart_p[str(request.GET['id'])] = {
+        'image': request.GET['image'],
+        'title': request.GET['title'],
+        'qty': request.GET['qty'],
+        'discountprice': request.GET['discountprice'],
+        'actualprice': request.GET['actualprice'],
+    }
+    if 'cartdata' in request.session:
+        if str(request.GET['id']) in request.session['cartdata']:
+            cart_data = request.session['cartdata']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_p[str(
+                request.GET['id'])]['qty'])+int(cart_data[str(request.GET['id'])]['qty'])
+            cart_data.update(cart_data)
+            request.session['cartdata'] = cart_data
+        else:
+            cart_data = request.session['cartdata']
+            cart_data.update(cart_p)
+            request.session['cartdata'] = cart_data
+    else:
+        request.session['cartdata'] = cart_p
+    return JsonResponse({'data': request.session['cartdata'], 'totalitems': len(request.session['cartdata'])})
+
+
+
+
+
+
+
+
+
+
 
 
 # # Filter data
@@ -223,20 +330,20 @@ def about(request):
 
 
 
-# # Signup Form
-# def signup(request):
-#     form = SignupForm   
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             pwd = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=pwd)
-#             login(request, user)
-#             return redirect('home')
-#     # form = SignupForm
-#     return render(request, 'registration/signup.html', {'form': form})
+# Signup Form
+def signup(request):
+    form = SignupForm   
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            pwd = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=pwd)
+            login(request, user)
+            return redirect('home')
+    # form = SignupForm
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 # # Checkout
@@ -274,6 +381,7 @@ def about(request):
 #             )
 #             # End
 
+
 #         # Process Payment
 #         host = request.get_host()
 #         paypal_dict = {
@@ -297,6 +405,7 @@ def about(request):
 #                                                 'form': form, 
 #                                                 'address': address,
 #                                                   })
+
 
 
 
@@ -375,20 +484,25 @@ def about(request):
 # 		}
 # 	return JsonResponse(data)
 
+
+
 # # My Wishlist
 # def my_wishlist(request):
 # 	wlist=Wishlist.objects.filter(user=request.user).order_by('-id')
 # 	return render(request, 'user/wishlist.html',{'wlist':wlist})
+
 
 # # My Reviews
 # def my_reviews(request):
 # 	reviews=ProductReview.objects.filter(user=request.user).order_by('-id')
 # 	return render(request, 'user/reviews.html',{'reviews':reviews})
 
+
 # # My AddressBook
 # def my_addressbook(request):
 # 	addbook=UserAddressBook.objects.filter(user=request.user).order_by('-id')
 # 	return render(request, 'user/addressbook.html',{'addbook':addbook})
+
 
 # # Save addressbook
 # def save_address(request):
@@ -405,12 +519,15 @@ def about(request):
 # 	form=AddressBookForm
 # 	return render(request, 'user/add-address.html',{'form':form,'msg':msg})
 
+
 # # Activate address
 # def activate_address(request):
 # 	a_id=str(request.GET['id'])
 # 	UserAddressBook.objects.update(status=False)
 # 	UserAddressBook.objects.filter(id=a_id).update(status=True)
 # 	return JsonResponse({'bool':True})
+
+
 
 # # Edit Profile
 # def edit_profile(request):
@@ -422,6 +539,7 @@ def about(request):
 # 			msg='Data has been saved'
 # 	form=ProfileForm(instance=request.user)
 # 	return render(request, 'user/edit-profile.html',{'form':form,'msg':msg})
+
 
 # # Update addressbook
 # def update_address(request,id):
@@ -439,10 +557,13 @@ def about(request):
 # 	form=AddressBookForm(instance=address)
 # 	return render(request, 'user/update-address.html',{'form':form,'msg':msg})
 
+
+
 # @csrf_exempt
 # def payment_done(request):
 # 	returnData=request.POST
 # 	return render(request, 'payment-success.html',{'data':returnData})
+
 
 
 # @csrf_exempt

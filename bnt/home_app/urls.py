@@ -4,22 +4,24 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    # path('search/', views.search, name='search'),
+    path('search/', views.search, name='search'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
 
-    # path('products/', views.products, name='products'),
+    path('products/', views.products, name='products'),
+    path('premade/', views.premade, name='premade'),
+    path('build-a-box/', views.build_a_box, name='build_a_box'),
     # path('products/<str:id>/', views.product_detail, name= 'product-detail'),
     
     # path('products-filter/',views.products_filter,name="products_filter"),
     # path('category-product-list/<int:cat_id>/',views.category_product_list,name='category-product-list'),
 
-    # path('add-to-cart/',views.add_to_cart,name='add_to_cart'),
+    path('add-to-cart/',views.add_to_cart,name='add_to_cart'),
     # path('cart/',views.cart_list,name='cart'),
     # path('delete-from-cart/',views.delete_cart_item,name='delete-from-cart'),
     # path('update-cart/',views.update_cart_item,name='update-cart'),
 
-    # path('accounts/signup/',views.signup,name='signup'),
+    path('accounts/signup/',views.signup,name='signup'),
     # path('checkout/',views.checkout,name='checkout'),
     # path('paypal/', include('paypal.standard.ipn.urls')),
     # path('payment-done/', views.payment_done, name='payment_done'),
