@@ -2,6 +2,8 @@ import json
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView, View
 from .models import *
+from django.contrib.auth import get_user_model
+User = get_user_model()
 # from django.core.mail import send_mail
 
 from django.http.response import HttpResponse, JsonResponse
@@ -116,11 +118,24 @@ def build_a_box(request):
     # data = {}
     print("request value ",str(request.GET.get('cart_items')))
     if request.GET.get('cart_items'):
+        prd_tot=0
+        itm_tot=0
         cart = json.loads(request.GET.get('cart_items'))
         print("value in cart", cart)
+        try:
+            for prd in cart:
+                itm_tot = (int(cart[prd]['quantity'])*int(cart[prd]['price']))
+                cart[prd]['total_item_price']=itm_tot
+                prd_tot=prd_tot+itm_tot
+        except:
+            pass
+
+
+        print("total price:", prd_tot)
+
         request.session['cart'] = cart
-        request.session['test'] = "Text for test"
-        return redirect('home_app/build-a-box.html')
+        request.session['product_total_price'] = prd_tot
+        return redirect('/')
     else:
 
         return render(request, 'home_app/build-a-box.html', data)
@@ -338,12 +353,16 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            pwd = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=pwd)
-            login(request, user)
+            #pwd = form.cleaned_data.get('password1')
+            #user = authenticate(username=username, password=pwd)
+            #login(request, user)
             return redirect('home')
+        else:
+            form = UserRegisterForm()
     # form = SignupForm
     return render(request, 'registration/signup.html', {'form': form})
+
+
 
 
 # # Checkout
