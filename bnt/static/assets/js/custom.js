@@ -1,48 +1,93 @@
-if (localStorage.getItem("slide") === null) {
-    restore_status();
+
+$(window).load(function() {
+if(sessionStorage.getItem("slide") === null)
+{
+sessionStorage.setItem("slide",1);
+sessionStorage.setItem("max_val",1);
+var a=sessionStorage.getItem("slide");
+var b=sessionStorage.getItem("max_val");
+console.log("else part slide value: ",a);
+console.log("else part max_val value: ",b);
 }
+else
+{
+var c = sessionStorage.getItem("slide");
+console.log("else part slide value: ",c);
+restore_status();
+}
+
+if(sessionStorage.getItem("product_list") === null)
+{
 var prod_list = {};
 var p_key = 0;
+}
+else
+{
+var prod_list = JSON.parse(sessionStorage.getItem("product_list"));
+var p_key = parseInt(sessionStorage.getItem("key_val"));
+}
+});
+
 function step2(box_id) {
-    if (typeof (Storage) !== "undefined") {
-        // Store
-        sessionStorage.setItem("box_id", box_id);
-        sessionStorage.setItem("slide", 1);
-        sessionStorage.setItem("max_val", 1);
-    }
-    else {
-        alert("Sorry, your browser does not support Session Storage...");
-    }
+     var sld=2;
+     console.log("inside box selection process function, sld valie: ",sld);
+     sessionStorage.setItem("box_id", box_id);
+     sessionStorage.setItem("slide",sld);
+     var max_val = parseInt(sessionStorage.getItem("max_val"));
+     console.log("max value in step2 :", max_val);
+     if (max_val < sld)
+     {
+        sessionStorage.setItem("max_val", sld);
+     }
+     var max_val = parseInt(sessionStorage.getItem("max_val"));
+     var sld_val = parseInt(sessionStorage.getItem("slide"));
+     console.log("slide value in step2: ",sld_val);
+     console.log("max value in step2: ",max_val);
+
 
 
     var current = document.getElementById("step1");
     var new_step = document.getElementById("step2");
     current.className = "step0";
-    console.log("inside step 2");
     new_step.className = "active step0";
-    console.log("inside step 3");
 
     var cards = document.getElementsByClassName("card1");
     cards[0].className = "card1 b-0";
     cards[1].className = "card1 b-0 show";
+
+    console.log("end of step2 func");
 }
 
-function step3(prod_id, qty) {
+function step3(prod_title,prod_id,qty,img_url, price) {
 
     var p_list = {}
+    if(sessionStorage.getItem("product_list") === null)
+    {
+        var prod_list = {};
+        var p_key = 0;
+    }
+    else
+    {
+        var prod_list = JSON.parse(sessionStorage.getItem("product_list"));
+        var p_key = parseInt(sessionStorage.getItem("key_val"));
+    }
 
+    p_list['title'] = prod_title;
     p_list['product_id'] = prod_id;
     p_list['quantity'] = qty;
+    p_list['image_url'] = img_url;
+    p_list['price'] = price;
+
     prod_list[p_key] = p_list;
     p_key = p_key + 1;
+    sessionStorage.setItem("key_val", p_key);
 
     if (typeof (Storage) !== "undefined") {
         // Store
         sessionStorage.setItem("product_list", JSON.stringify(prod_list));
-        //  console.log(JSON.stringify(prod_list));
+        console.log(JSON.stringify(prod_list));
         sessionStorage.setItem("slide", 2);
         sessionStorage.setItem("max_val", 2);
-
     }
     else {
         alert("Sorry, your browser does not support Session Storage...");
@@ -58,16 +103,19 @@ function step3(prod_id, qty) {
 }
 
 function instep(val, flag) {
+// flag =1, val = 1
     var max_val = parseInt(sessionStorage.getItem("max_val"));
+    var slide = parseInt(sessionStorage.getItem("slide"));
     console.log("type of val: ", typeof (val), val);
     console.log("type of maxval: ", typeof (max_val), max_val);
-    if (flag == 1) {
+    if (flag == 1 && val>max_val) {
         sessionStorage.setItem("max_val", val);
     }
     
     if (val <= max_val || flag == 1) {
         console.log("before restore status");
         sessionStorage.setItem("slide", val);
+
         restore_status();
     }
 
@@ -81,10 +129,7 @@ function send_data(data_list){
         dataType: false,
         success: function (res) {
             console.log("successfully sent to view")
-            
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("error: ",textStatus);
+            $("#checkout_table").load(location.href + " #checkout_table");
         },
     });
 
@@ -94,17 +139,16 @@ function send_data(data_list){
 function restore_status() {
 
     var mem = sessionStorage.getItem("slide");
-    console.log("value of slide1: " + mem);
+    console.log("restore status slide value: ", mem);
     if (mem === null) {
-        console.log("slide value is null");
+        console.log("restore slide value is null");
     }
     else {
-        var data = JSON.parse(JSON.stringify(sessionStorage.product_list));
-    
-        //var current = document.getElementById("step"+mem);
-        var new_step = document.getElementById("step" + (parseInt(mem) + 1));
+
+        console.log("restore slide mem: ", mem);
+        var new_step = document.getElementById("step" + (parseInt(mem)));
         //current.className = "step0";
-        console.log("inside restore status");
+        console.log("restoring status");
 
 
 
@@ -115,15 +159,22 @@ function restore_status() {
         }
 
         new_step.className = "active step0";
-        cards[parseInt(mem)].className = "card1 b-0 show";
+        cards[parseInt(mem-1)].className = "card1 b-0 show";
 
-        var card_count = document.getElementsByClassName("card1").length;
-        console.log("befor send data",card_count,(parseInt(mem)+1));  
-        if(card_count==(parseInt(mem)+1))
+
+
+        if(sessionStorage.product_list)
         {
-        console.log("calling send data");
-        send_data(data);
-      }
+            var data = sessionStorage.product_list;
+
+            var card_count = document.getElementsByClassName("card1").length;
+            console.log("befor send data",card_count,(parseInt(mem)+1));
+            if(card_count==(parseInt(mem)+1))
+            {
+                console.log("calling send data");
+                send_data(data);
+            }
+        }
     }
 }
 

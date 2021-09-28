@@ -27,6 +27,8 @@ class Category(models.Model):
 
 
 # Variant
+
+
 class Variant(models.Model):
     title=models.CharField(max_length=100)
 

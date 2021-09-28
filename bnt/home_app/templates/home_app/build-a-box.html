@@ -52,10 +52,10 @@
                 <div class="row d-flex justify-content-center">
                     <div class="">
                         <ul id="progressbar" class="text-center">
-                            <li class="active step0" onclick="instep(0,0)" id="step1">Choose your Box</li>
+                            <li class="active step0" onclick="instep(1,0)" id="step1">Choose your Box</li>
 
-                            <li class="step0 " id="step2" onclick="instep(1,0)">Choose your Item</li>
-                            <li class="step0" id="step3" onclick="instep(2,0)">Choose your Card</li>
+                            <li class="step0 " id="step2" onclick="instep(2,0)">Choose your Item</li>
+                            <li class="step0" id="step3" onclick="instep(3,0)">Choose your Card</li>
                             <li class="step0" id="step4">Done</li>
 
                         </ul>
@@ -197,7 +197,7 @@
                             <div class="row d-flex justify-content-center">
 
                                 <div class="circle">
-                                    <div id="next1" onclick="validate1(0)">Next</div>
+                                    <div id="next1" onclick="instep(2,1)">Next</div>
                                 </div>
                             </div>
                         </div>
@@ -308,7 +308,8 @@
                                                                             <div class="add_to_cart">
 
                                                                                 <a href="#" class="btn"
-                                                                                    onclick="step3('{{product.id}}',document.getElementById('product-{{product.id}}').value)"
+                                                                                    onclick="step3('{{product.title}}','{{product.id}}',document.getElementById('product-{{product.id}}').value,
+                                                                                                    '{{product.productattribute_set.first.imageURL}}','{{product.productattribute_set.first.price}}')"
                                                                                     data-dismiss="modal">add to
                                                                                     cart</a>
                                                                                 <a href="#" class="like_us"> <i
@@ -345,7 +346,7 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="circle">
 
-                                    <div id="next2" onclick="instep(2,1)">Next</div>
+                                    <div id="next2" onclick="instep(3,1)">Next</div>
                                 </div>
                             </div>
                         </div>
@@ -484,7 +485,7 @@
                             </div>
                             <div class="row d-flex justify-content-center">
                                 <div class="circle">
-                                    <div id="next2" onclick="instep(3,1)">Next</div>
+                                    <div id="next2" onclick="instep(4,1)">Next</div>
                                 </div>
                             </div>
                         </div>
@@ -523,17 +524,18 @@
                                                                 <td>
                                                                     <div class="media">
                                                                         <div class="d-flex">
-                                                                            <img src="{% static 'assets/img/gallery/card1.png' %}"
+
+                                                                            <img src="{{request.session.cart|get_item:val|get_item:'image_url'}}"
                                                                                 alt="" />
                                                                         </div>
                                                                         <div class="media-body">
-                                                                            <p> {{request.session.cart|get_item:val|get_item:'product_id'}}
+                                                                            <p> {{request.session.cart|get_item:val|get_item:'title'}}
                                                                             </p>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    <h5>$360.00</h5>
+                                                                    <h5>${{request.session.cart|get_item:val|get_item:'price'}}</h5>
                                                                 </td>
                                                                 <td>
                                                                     <div class="product_count">
@@ -549,7 +551,7 @@
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                    <h5>$720.00</h5>
+                                                                    <h5>${{request.session.cart|get_item:val|get_item:'total_item_price'}}</h5>
                                                                 </td>
                                                             </tr>
                                                             {%endfor%}
@@ -575,7 +577,7 @@
                                                                     <h5>Subtotal</h5>
                                                                 </td>
                                                                 <td>
-                                                                    <h5>$2160.00</h5>
+                                                                    <h5>${{request.session.product_total_price}}</h5>
                                                                 </td>
                                                             </tr>
                                                           

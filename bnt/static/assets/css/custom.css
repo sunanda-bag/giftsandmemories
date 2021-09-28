@@ -5,7 +5,8 @@
     background-color: #D1C4E9;
     background-repeat: no-repeat
 } */
-
+.login-bg{height:100vh !important;
+}
 .fieldlabels {
     color: #455A64 !important;
     text-align: left
