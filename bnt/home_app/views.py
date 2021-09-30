@@ -92,8 +92,24 @@ def premade(request):
             'cards':cards,
 #             'minMaxPrice': minMaxPrice,
             }
-    # data = {}
-    return render(request, 'home_app/premade.html', data)
+    if request.GET.get('cart_items'):
+        prd_tot=0
+        itm_tot=0
+        cart = json.loads(request.GET.get('cart_items'))
+        print("value in cart", cart)
+        try:
+            for prd in cart:
+                itm_tot = (int(cart[prd]['quantity'])*int(cart[prd]['price']))
+                cart[prd]['total_item_price']=itm_tot
+                prd_tot=prd_tot+itm_tot
+        except:
+            pass
+
+        request.session['cart'] = cart
+        request.session['product_total_price'] = prd_tot
+        return redirect('/')
+    else:
+        return render(request, 'home_app/premade.html', data)
 
 
 def build_a_box(request):
