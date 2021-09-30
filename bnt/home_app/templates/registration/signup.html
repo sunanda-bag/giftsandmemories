@@ -4,87 +4,87 @@
 {% block content %}
 
 <style>
+    input {
+        margin-bottom: 0px !important;
+    }
 
-input{
-margin-bottom: 0px !important;
-}
+    .btn {
+        height: 50% !important;
+    }
 
-.btn{
-height: 50% !important;
-}
-hr {
-  margin: 10px 0 !important;
-  border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-.input-box{
-padding-top: 20px !important;
-    padding-bottom: 10px !important;
-}
+    hr {
+        margin: 10px 0 !important;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
 
-.register-form{
-padding: 40px 60px 50px 50px !important;
-}
+    .input-box {
+        padding-top: 20px !important;
+        padding-bottom: 10px !important;
+    }
 
+    .register-form {
+        padding: 40px 60px 50px 50px !important;
+    }
 </style>
 <div class="mx-auto">
     <main class="login-bg">
         <!-- Register Area Start -->
         <div class="register-form-area">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-xl-4 col-lg-4">
                         <form method="post">
                             {% csrf_token %}
-                        <div class="register-form text-center">
-                            <!-- Login Heading -->
-                            <div class="register-heading">
-                                <span>Sign Up</span>
-                                <p>Create your account to get full access</p>
+                            <div class="register-form text-center">
+                                <!-- Login Heading -->
+                                <div class="register-heading">
+                                    <span>Sign Up</span>
+                                    <p>Create your account to get full access</p>
 
+                                </div>
+                                <hr>
+                                <!--{{ form|crispy }}-->
+                                <!-- Single Input Fields -->
+                                <div class="input-box">
+
+                                    <div class="single-input-fields">
+                                        {{ form.username|as_crispy_field }}
+                                    </div>
+                                    <div class="single-input-fields">
+                                        {{ form.email|as_crispy_field }}
+                                    </div>
+                                    <div class="single-input-fields">
+                                        {{ form.first_name|as_crispy_field }}
+                                    </div>
+                                    <div class="single-input-fields ">
+                                        {{ form.last_name|as_crispy_field }}
+                                    </div>
+
+
+
+                                    <div class="single-input-fields">
+                                        {{ form.password1|as_crispy_field }}
+                                    </div>
+                                    <div class="single-input-fields">
+                                        {{ form.password2|as_crispy_field }}
+                                    </div>
+                                    <div class="single-input-fields">
+                                        <button class="btn submit-btn3">Sign Up</button>
+                                    </div>
+                                </div>
+                                <!-- form Footer -->
+                                <div class="register-footer">
+
+                                    <p> <small>Already have an account? <a href="{% url 'login' %}"> Login</a> here</small></p>
+                                </div>
                             </div>
-<hr>
-                            <!--{{ form|crispy }}-->
-                            <!-- Single Input Fields -->
-                           <div class="input-box">
-
-                                <div class="single-input-fields">
-                                    {{ form.username|as_crispy_field }}
-                                </div>
-                                   <div class="single-input-fields">
-                                    {{ form.email|as_crispy_field }}
-                                </div>
-                               <div class="single-input-fields">
-                                    {{ form.first_name|as_crispy_field }}
-                                </div>
-                                   <div class="single-input-fields ">
-                                    {{ form.last_name|as_crispy_field }}
-                                </div>
-
-
-
-                                <div class="single-input-fields">
-                                    {{ form.password1|as_crispy_field }}
-                                </div>
-                                <div class="single-input-fields">
-                                    {{ form.password2|as_crispy_field }}
-                                </div>
-                               <div class="single-input-fields">
-                                   <button class="btn submit-btn3">Sign Up</button>
-                                </div>
-                            </div>
-                            <!-- form Footer -->
-                            <div class="register-footer">
-
-                                <p> <small>Already have an account? <a href="login.html"> Login</a> here</small></p>
-                            </div>
-                        </div>
-                            </form>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Register Area End -->
     </main>
-    </div>
+</div>
 {% endblock content %}

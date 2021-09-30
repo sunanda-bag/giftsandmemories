@@ -16,6 +16,7 @@ from django.http.response import HttpResponse, JsonResponse
 from .forms import *
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.forms import UserRegisterForm
 
 # # paypal
 # from django.urls import reverse
@@ -97,8 +98,6 @@ def premade(request):
 
 def build_a_box(request):
 
-    
-    
     categories = Category.objects.all()
     labels = Variant.objects.all()
     products = Product.objects.all()
@@ -129,7 +128,6 @@ def build_a_box(request):
                 prd_tot=prd_tot+itm_tot
         except:
             pass
-
 
         print("total price:", prd_tot)
 
@@ -356,9 +354,10 @@ def signup(request):
             #pwd = form.cleaned_data.get('password1')
             #user = authenticate(username=username, password=pwd)
             #login(request, user)
-            return redirect('home')
+            return redirect('login')
         else:
-            form = UserRegisterForm()
+            # form = UserRegisterForm()
+            form = SignupForm()
     # form = SignupForm
     return render(request, 'registration/signup.html', {'form': form})
 

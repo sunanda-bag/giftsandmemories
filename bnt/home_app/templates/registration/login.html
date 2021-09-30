@@ -1,5 +1,7 @@
 {% extends 'home_app/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 {% block content %}
 
     <main class="login-bg">
@@ -8,35 +10,54 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
-                        <div class="login-form">
-                            <!-- Login Heading -->
-                            <div class="login-heading">
-                                <span>Login</span>
-                                <p>Enter Login details to get access</p>
-                            </div>
-                            <!-- Single Input Fields -->
-                            <div class="input-box">
-                                <div class="single-input-fields">
-                                    <label>Username or Email Address</label>
-                                    <input type="text" placeholder="Username / Email address">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="login-form">
+                                <!-- Login Heading -->
+                                <div class="login-heading">
+    
+                                    <span>Login</span>
+                                    <p>Enter Login details to get access</p>
                                 </div>
-                                <div class="single-input-fields">
-                                    <label>Password</label>
-                                    <input type="password" placeholder="Enter Password">
+                                <!-- Single Input Fields -->
+                                <div class="input-box">
+    
+                                    <div class="single-input-fields">
+                                        {{ form.username|as_crispy_field }}
+                                    </div>
+                                    <div class="single-input-fields">
+                                        {{ form.password|as_crispy_field }}
+                                    </div>
+                                    
+                                    
+                                    <div class="single-input-fields">
+                                        <button class="btn submit-btn3">Login</button>
+                                    </div>
                                 </div>
-                                <div class="single-input-fields login-check">
-                                    <input type="checkbox" id="fruit1" name="keep-log">
-                                    <label for="fruit1">Keep me logged in</label>
-                                <a href="#" class="f-right">Forgot Password?</a>
+                                <!-- <div class="input-box">
+                                    <div class="single-input-fields">
+                                        <label>Username or Email Address</label>
+                                        <input type="text" placeholder="Username / Email address">
+                                    </div>
+                                    <div class="single-input-fields">
+                                        <label>Password</label>
+                                        <input type="password" placeholder="Enter Password">
+                                    </div>
+                                    <div class="single-input-fields login-check">
+                                        <input type="checkbox" id="fruit1" name="keep-log">
+                                        <label for="fruit1">Keep me logged in</label>
+                                    <a href="#" class="f-right">Forgot Password?</a>
+                                    </div>
+                                </div> -->
+                                <!-- form Footer -->
+                                <div class="login-footer">
+                                    <p>Don’t have an account? <a href="{% url 'signup' %}">Sign Up</a>  here</p>
+                                    <!-- <button class="submit-btn3">Login</button> -->
+                                   
                                 </div>
                             </div>
-                            <!-- form Footer -->
-                            <div class="login-footer">
-                                <p>Don’t have an account? <a href="{% url 'signup' %}">Sign Up</a>  here</p>
-                                <!-- <button class="submit-btn3">Login</button> -->
-                                <input type="submit" value="Login" class="btn btn-primary submit-btn3" />
-                            </div>
-                        </div>
+                        </form>
+                        
                     </div>
                 </div>
             </div>
