@@ -13,11 +13,11 @@
                     <div class="row">
                         <div class="col-xl-6 col-lg-8 col-md-8">
                             <div class="hero__caption hero__caption2">
-                                <h1 data-animation="fadeInUp" data-delay=".4s">Premade</h1>
+                                <h1 data-animation="fadeInUp" data-delay=".4s">Corporate Gifts</h1>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="/products">Premade</a></li>
+                                        <li class="breadcrumb-item"><a href="/products">Corporate Gifts</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -33,9 +33,9 @@
 
 
     <!--? Properties Start -->
-    <section class="properties new-arrival fix">
+     <section class="properties new-arrival fix">
         <div class="container">
-            <!-- Section tittle -->
+          
             <div class="row justify-content-center">
                 <div class="col-xl-7 col-lg-8 col-md-10">
                     <div class="section-tittle mb-60 text-center wow fadeInUp" data-wow-duration="1s"
@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="properties__button text-center">
-                        <!--Nav Button  -->
+                    
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-Sofa-tab" data-toggle="tab" href="#nav-Sofa"
@@ -69,15 +69,13 @@
                                     role="tab" aria-controls="nav-Decore" aria-selected="false">Decore</a>
                             </div>
                         </nav>
-                        <!--End Nav Button  -->
+                        
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <!-- Nav Card -->
                 <div class="tab-content" id="nav-tabContent">
-                    <!-- card one -->
                     <div class="tab-pane fade show active container-fluid" id="nav-Sofa" role="tabpanel"
                         aria-labelledby="nav-Sofa-tab">
                         
@@ -105,7 +103,6 @@
                                 </div>
                             </div>
 
-                            <!-- product details modal -->
 
                             <div class="modal fade" id="productModal-{{product.id}}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -120,7 +117,6 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <!--? Single Product Area Start-->
                                             <div class="product_image_area section-padding40">
                                                 <div class="container">
                                                     <div class="row s_product_inner">
@@ -183,7 +179,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Single Product Area End-->
 
                                         </div>
 
@@ -191,7 +186,6 @@
                                 </div>
                             </div>
 
-                            <!-- product details modal end -->
 
 
                             {% endfor %}
@@ -201,7 +195,6 @@
                     </div>
                    
                 </div>
-                <!-- End Nav Card -->
             </div>
 
 
@@ -210,7 +203,6 @@
 
 
 
-            <!-- Button -->
             <div class="row justify-content-center">
                 <div class="room-btn">
                     <a href="product.html" class="border-btn">Discover More</a>
@@ -218,62 +210,8 @@
             </div>
         </div>
     </section>
-    <!-- Properties End -->
 
-    <!--? New Arrival End -->
-    <!-- Popular Locations End -->
-    <!--? Services Area Start -->
-    <div class="categories-area section-padding40 gray-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                        <div class="cat-icon">
-                            <img src="{% static 'assets/img/icon/services1.svg' %}" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5>Fast & Free Delivery</h5>
-                            <p>Free delivery on all orders</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                        <div class="cat-icon">
-                            <img src="{% static 'assets/img/icon/services2.svg' %}" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5>Secure Payment</h5>
-                            <p>Free delivery on all orders</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
-                        <div class="cat-icon">
-                            <img src="{% static 'assets/img/icon/services3.svg' %}" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5>Money Back Guarantee</h5>
-                            <p>Free delivery on all orders</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-cat mb-50 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".5s">
-                        <div class="cat-icon">
-                            <img src="{% static 'assets/img/icon/services4.svg' %}" alt="">
-                        </div>
-                        <div class="cat-cap">
-                            <h5>Online Support</h5>
-                            <p>Free delivery on all orders</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--? Services Area End -->
+   
 </main>
 
 {% endblock content %}

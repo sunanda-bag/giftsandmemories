@@ -33,7 +33,92 @@
 
     <link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
 
-    <style>
+    <style> 
+        .tailor-offers_right{
+       
+        background-size: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 570px;
+        width: 55%;
+         @media #{$lg}{
+            width: 49%;
+        }
+         @media #{$xs}{
+            width: 100%;
+            height: 500px;
+        }
+        @media #{$sm}{
+            width: 100%;
+            height: 500px;
+        }
+        @media #{$md}{
+            width: 100%;
+            height: 500px;
+        }
+
+    }
+        .circle{
+            width:150x;
+            height:30px;
+            border-radius:20px;
+            font-size:20px;
+            color:rgb(12, 11, 11);
+            line-height: 10px;
+            text-align:center;
+            background:rgb(238, 161, 161)
+
+        }
+
+        .image_centered
+        {
+            position: absolute;
+            color:black;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+
+        }
+       .boxed {
+        border: 1px solid green ;
+        }
+        .my-color{
+            background:#F2E1D9;
+            height:auto;
+            width:auto;
+        }
+        
+        #st-box {
+            float:left;
+            width:180px;
+            height:160px;
+            background-color:white;
+            border:solid black;
+        }
+        #nd-box {
+            float:left;
+            width:180px;
+            height:160px;
+            background-color:white; 
+            border:solid black;
+            margin-left:20px;
+        }
+        #rd-box {
+            float:right;
+            width:180px;
+            height:160px;
+            background-color:white;
+            border:solid black;
+        }
+        h1 {
+            color:Green;
+        }
+
+
+
+
         @media (min-width: 650px) {
             .modal-dialog {
                 max-width: 55%;
